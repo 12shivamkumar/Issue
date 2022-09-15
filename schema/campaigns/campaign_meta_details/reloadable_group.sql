@@ -3,8 +3,7 @@
 CREATE TABLE `reloadable_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `org_id` int(11) NOT NULL,
-  `campaign_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
+
   `message_id` int(11) NOT NULL,
   `is_campaign_active` tinyint(1) NOT NULL,
   `is_message_active` tinyint(1) NOT NULL,

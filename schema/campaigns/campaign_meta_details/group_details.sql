@@ -7,6 +7,8 @@ CREATE TABLE `group_details` (
   `group_label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci,
   `created_date` datetime NOT NULL,
+    `campaign_id` int(11) NOT NULL,
+    `group_id` int(11) NOT NULL,
   `org_id` int(11) NOT NULL,
   `type` enum('CAMPAIGN_USERS','STICKY_GROUP','LOYALTY','TEST_GROUP','NON_LOYALTY','ALL','UPLOAD','FILTER_BASED','DERIVED','ORG_USERS','SPLIT','MERGE') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `bucket_id` int(11) DEFAULT NULL,
