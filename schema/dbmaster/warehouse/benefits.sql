@@ -6,8 +6,6 @@ CREATE TABLE `benefits` (
   `linked_program_type` enum('PARTNER','LOYALTY') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'benefit attached to loyalty or partner program',
   `program_id` int(11) NOT NULL COMMENT 'id of loyalty/partner program',
   `promotion_id` int(11) NOT NULL COMMENT 'maps to corresponding promotion',
-  `description` mediumtext COLLATE utf8mb4_unicode_ci COMMENT 'Description of the benefit',
-  `max_value` bigint(20) NOT NULL COMMENT 'maximum value allowed for the benefit',
   `is_active` tinyint(1) NOT NULL COMMENT 'Checks if benefit is active or not',
   `created_by` int(11) NOT NULL,
   `created_on` datetime NOT NULL COMMENT 'Date of creation of benefit',

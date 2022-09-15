@@ -7,8 +7,6 @@ CREATE TABLE `files` (
   `namespace` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `file_type` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  `added_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `added_by_ip` bigint(20) NOT NULL,
   `last_update_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_accessed_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `additional_info` mediumtext COLLATE utf8mb4_unicode_ci COMMENT 'Any additional info can be saved here',
