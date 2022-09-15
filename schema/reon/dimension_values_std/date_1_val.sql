@@ -1,0 +1,21 @@
+CREATE TABLE `date_1_val` (
+  `date_id` bigint(20) NOT NULL DEFAULT '0',
+  `date` varchar(63) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `day_of_month` int(11) NOT NULL,
+  `week_of_year` int(11) NOT NULL,
+  `month_no_of_year` int(11) NOT NULL,
+  `month_of_year` varchar(63) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `month_no` int(11) NOT NULL,
+  `month` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `quarter` varchar(63) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `yearly_quarter_no` int(11) NOT NULL,
+  `quarter_no` int(11) NOT NULL,
+  `year` int(11) NOT NULL,
+  `week_number` int(11) NOT NULL,
+  `week_start_date` varchar(63) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `week_end_date` varchar(63) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `day_of_week_no` int(11) NOT NULL,
+  `day_of_week` varchar(63) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`date_id`),
+  UNIQUE KEY `date` (`date`)
+) ENGINE=MyISAM  COLLATE=utf8mb4_unicode_ci;

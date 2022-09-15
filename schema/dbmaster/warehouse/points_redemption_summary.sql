@@ -1,0 +1,35 @@
+
+
+CREATE TABLE `points_redemption_summary` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `program_id` int(1) NOT NULL,
+  `org_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `point_category_id` int(11) NOT NULL,
+  `points_redeemed` decimal(15,3) NOT NULL,
+  `redemption_type` enum('REDEMPTION','REVERSAL','GROUP_REDEMPTION','REVERSAL_ON_RETURN') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'REDEMPTION',
+  `source_type` enum('API','IMPORT') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference_id` int(11) NOT NULL,
+  `redemption_id` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'unique redemption id for points redemption',
+  `external_reference_number` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'external reference number for points redemption',
+  `validation_code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bill_id` bigint(20) NOT NULL,
+  `bill_number` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notes` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `purpose` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `redemption_time` datetime NOT NULL COMMENT 'time of redemption',
+  `points_redemption_time` datetime NOT NULL COMMENT 'time when points redeemed from warehouse',
+  `till_id` bigint(20) DEFAULT NULL COMMENT 'counter which did the redemption',
+  `request_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `event_log_id` bigint(20) NOT NULL DEFAULT -1,
+  `auto_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`,`org_id`),
+  UNIQUE KEY `customer_index` (`org_id`,`program_id`,`customer_id`,`redemption_time`,`till_id`,`redemption_type`),
+  UNIQUE KEY `customer_redemption_idx` (`org_id`,`customer_id`,`redemption_id`),
+  UNIQUE KEY `external_reference_number_idx` (`org_id`,`external_reference_number`),
+  KEY `org_auto_time_idx` (`org_id`,`auto_update_time`) ,
+  KEY `auto_update_time` (`auto_update_time`) ,
+  KEY `event_log_idx` (`org_id`,`event_log_id`) ,
+  KEY `external_reference_number` (`org_id`,`program_id`,`customer_id`,`external_reference_number`)
+) ;
+

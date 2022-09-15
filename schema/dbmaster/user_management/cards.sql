@@ -1,0 +1,22 @@
+CREATE TABLE `cards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `org_id` int(11) NOT NULL,
+  `number` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `external_id` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `series_id` int(11) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `is_generated` tinyint(1) NOT NULL DEFAULT '1',
+  `auto_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_updated_by` int(11) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `last_updated_on` datetime NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `issued_date` datetime NOT NULL,
+  `expiry_date` datetime NOT NULL,
+  PRIMARY KEY (`id`,`org_id`),
+  UNIQUE KEY `org_id` (`org_id`,`number`),
+  KEY `external_id` (`org_id`,`external_id`),
+  KEY `auto_update_time` (`auto_update_time`),
+  KEY `user` (`org_id`,`user_id`)
+);

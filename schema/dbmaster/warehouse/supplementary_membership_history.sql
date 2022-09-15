@@ -1,0 +1,22 @@
+CREATE TABLE `supplementary_membership_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `org_id` int(11) NOT NULL,
+  `loyalty_program_id` int(11) NOT NULL,
+  `partner_program_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `source` enum('LINKING','AUTO_DELINKING','DELINKING','UPDATE','MEMBERSHIP_ACTION', 'PP_EXPIRY_JOB', 'IMPORT', 'MERGE') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action` enum('SUPPLEMENTARY_MEMBERSHIP_STARTED','SUPPLEMENTARY_MEMBERSHIP_RENEWAL_INITIATED','SUPPLEMENTARY_MEMBERSHIP_RENEWED','SUPPLEMENTARY_MEMBERSHIP_EXPIRED','SUPPLEMENTARY_MEMBERSHIP_REVOKED_BY_MERGE', 'BACKUP_SUPPLEMENTARY_MEMBERSHIP_STARTED','PARTNER_PROGRAM_EARLY_EXPIRY') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `additional_action` enum('LOYALTY_SLAB_UPGRADE','LOYALTY_SLAB_RENEWAL','NO_ACTION') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NO_ACTION',
+  `additional_action_value` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `event_log_id` bigint(20) DEFAULT -1,
+  `event_date` datetime NOT NULL,
+  `evaluation_date` datetime NOT NULL,
+  `auto_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_orgId_customerId` (`org_id`,`customer_id`),
+  KEY `idx_orgId_loyaltyProgramId_customerId` (`org_id`,`loyalty_program_id`,`customer_id`),
+  KEY `idx_orgId_partnerProgramId_customerId` (`org_id`,`partner_program_id`,`customer_id`),
+  KEY `idx_orgId_eventDate` (`org_id`, `event_date`),
+  KEY `org_auto_time_idx` (`org_id`,`auto_update_time`) USING BTREE,
+  KEY `auto_update_time` (`auto_update_time`) USING BTREE
+);

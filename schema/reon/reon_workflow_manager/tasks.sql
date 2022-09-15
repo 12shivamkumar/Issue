@@ -1,0 +1,26 @@
+-- start  Schema : `tasks`
+CREATE TABLE `tasks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `execution_id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `class_name` varchar(255) NOT NULL,
+  `status` enum('NOT_READY','READY','RUNNING','SUCCESS','FAILED','SKIPPED','ERROR','PERMANENT_FAILURE','DEPENDENCY_FAILURE') DEFAULT 'NOT_READY',
+  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` enum('BASH','GROUP','SCALA','PHASE','VIRTUAL','SPARK','MYSQL','NOP','CUSTOM','SPARK_SHELL','SPARK_SESSION_CLOSE','LIVY_CUSTOM') DEFAULT 'SPARK',
+  `attempt_count` smallint(3) DEFAULT '0',
+  `ignore_failure` tinyint(1) DEFAULT '0',
+  `group_id` int(11) DEFAULT '0',
+  `ready_time` timestamp NULL DEFAULT NULL,
+  `start_time` timestamp NULL DEFAULT NULL,
+  `end_time` timestamp NULL DEFAULT NULL,
+  `error_details` text,
+  `phase_id` int(11) DEFAULT NULL,
+  `context_id` int(11) DEFAULT NULL,
+  `properties` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `max_retries` tinyint(4) DEFAULT NULL,
+  `priority` tinyint(4) NOT NULL DEFAULT '3',
+  `save_result_as` text,
+  `first_attempt_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `task_unique` (`execution_id`,`phase_id`,`context_id`,`name`,`attempt_count`)
+);

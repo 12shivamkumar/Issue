@@ -1,0 +1,11 @@
+CREATE TABLE `TBL_BRAND_AUD` (
+  `ID` bigint(20) NOT NULL,
+  `REV` int(11) NOT NULL,
+  `REVTYPE` tinyint(4) DEFAULT NULL,
+  `IS_ENABLED` bit(1) DEFAULT NULL,
+  `NAME` varchar(255) DEFAULT NULL,
+  `ORG_ID` bigint DEFAULT NULL,
+  `TILL_CODE` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`,`REV`),
+  KEY `idx_rev` (`REV`)
+)

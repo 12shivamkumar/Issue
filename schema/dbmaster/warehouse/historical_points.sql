@@ -1,0 +1,22 @@
+CREATE TABLE `historical_points` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `org_id` bigint(11) DEFAULT NULL,
+  `customer_id` bigint(11) DEFAULT NULL,
+  `bill_number` varchar(100) DEFAULT NULL,
+  `transaction_type` enum('DEBIT','CREDIT') DEFAULT NULL,
+  `points` DECIMAL(20,5) DEFAULT 0,
+  `points_activity` varchar(100) DEFAULT NULL,
+  `loyalty_program_name` varchar(100) DEFAULT NULL,
+  `custom_fields` mediumtext,
+  `event_date` datetime DEFAULT NULL,
+  `external_unique_id`varchar(36) NOT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_on` datetime DEFAULT NULL,
+  `event_log_id` bigint(11) DEFAULT -1,
+  `auto_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_uniq_external_unique_id` (`org_id`,`external_unique_id`),
+  KEY `idx_org_customer_event_date` (`org_id`,`customer_id`,`event_date`),
+  KEY `idx_org_customer_bill_number` (`org_id`,`customer_id`,`bill_number`),
+  KEY `idx_org_customer_transaction_type` (`org_id`,`customer_id`,`transaction_type`)
+);

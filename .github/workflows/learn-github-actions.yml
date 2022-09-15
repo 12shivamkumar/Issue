@@ -1,0 +1,28 @@
+name: learn-github-actions
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+    branches:
+jobs:
+  drop-column-schema-validator:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get Changed-files
+        # Gets the changed files using the sha and calls the change-files.sh by passing the list of changed files
+        id: changedFiles
+        run: |
+          changed_files_list=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.head.sha }}~ ${{ github.event.pull_request.head.sha }})
+          /bin/bash validator/change-files.sh "${changed_files_list}"
+      - name: Executing DB Queries
+        #If changes are in schema then check will be executed using mysql-check script
+        run: |
+          if ( ${{steps.changedFiles.outputs.db_file_change_exists}} ); then
+            /bin/bash validator/mysql-check.sh "${{steps.changedFiles.outputs.schema_files}}" "${{ github.event.pull_request.head.sha }}"
+          fi
+            
+            
+            

@@ -1,0 +1,35 @@
+
+
+CREATE TABLE `emf_event_logs_new` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `org_id` int(11) NOT NULL,
+  `event_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `entity_type` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `entity_value` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `till_id` int(11) DEFAULT '0',
+  `user_id` bigint(11) NOT NULL,
+  `transaction_id` bigint(11) NOT NULL,
+  `unique_id` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('IN_PROGRESS','FAIL','SUCCESS','PERMANENT_FAIL','MAX_OUT') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `replay_count` tinyint(3) DEFAULT '0',
+  `event_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_on` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_update_by` bigint(20) DEFAULT NULL,
+  `last_update_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `params` blob,
+  `param_types` blob,
+  `json_params` mediumtext COLLATE utf8mb4_unicode_ci,
+  `fail_status_code` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fail_status_message` mediumtext COLLATE utf8mb4_unicode_ci,
+  `last_fail_event_id` bigint(11)  DEFAULT NULL,
+  `last_fail_event_id_for_entity` bigint(11)  DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `event_id` (`org_id`,`unique_id`),
+  KEY `user_txn_idx` (`org_id`,`user_id`,`transaction_id`),
+  KEY `entity_idx` (`org_id`,`entity_type`,`entity_value`),
+  KEY `status_time_idx` (`status`,`event_time`),
+  KEY `last_fail_event_id` (`last_fail_event_id`,`status`),
+  KEY `last_fail_event_entity_id` (`last_fail_event_id_for_entity`,`status`),
+  KEY `last_fails` (`status`,`last_fail_event_id`,`last_fail_event_id_for_entity`)
+) 
+

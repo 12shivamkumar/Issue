@@ -1,0 +1,20 @@
+CREATE TABLE fleet_hierarchy_roles (
+   id int(11) NOT NULL AUTO_INCREMENT,
+   org_id int(11) NOT NULL,
+   code varchar(50) NOT NULL,
+   name varchar(50),
+   description varchar(255) ,
+   is_active int(1) NOT NULL DEFAULT '1',
+   is_points_aggregation_role int(1) NOT NULL DEFAULT '0',
+   created_on datetime NOT NULL,
+   created_by int(11) NOT NULL,
+   updated_by int(11),
+   child_role_code varchar(50),
+   max_child int(5),
+   hierarchy_id int(11) NOT NULL,
+   group_level int(1) NOT NULL DEFAULT '0',
+   non_auto_group_level int(1) NOT NULL DEFAULT '0',
+   auto_update_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`id`,`org_id`),
+   KEY `code` (`code`)
+);

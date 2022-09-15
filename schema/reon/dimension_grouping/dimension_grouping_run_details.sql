@@ -1,0 +1,23 @@
+CREATE TABLE `dimension_grouping_run_details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `org_id` bigint NOT NULL DEFAULT '0',
+  `scope_id` bigint NOT NULL DEFAULT '-1000',
+  `group_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `group_id` int NOT NULL,
+  `group_display_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `input_params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `dimension_id` bigint NOT NULL,
+  `dimension_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dimension_table_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dimension_attribute` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('UPLOADED','WORKFLOW_QUEUED','WORKFLOW_EXECUTING','SUCCESS','WORKFLOW_ERROR','META_FAIL','RELOAD_FAIL','COLUMNS_NOT_TWO','COLUMN_NAME_MISMATCH','INVALID_ATTRIBUTE_VALUES','MISSING_ATTRIBUTE_VALUES','DUPLICATE_ATTRIBUTE_VALUES','S3_READ_ERROR','') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `s3_path` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_updated_by` bigint DEFAULT NULL,
+  `added_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dimension_id_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`,`org_id`),
+  UNIQUE KEY `dimension_index` (`id`,`dimension_id`,`dimension_attribute`) USING BTREE,
+  KEY `org_scope_index` (`org_id`,`scope_id`),
+  KEY `org_scope_group` (`org_id`,`scope_id`,`group_id`)
+) ENGINE=InnoDB;

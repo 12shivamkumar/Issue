@@ -1,0 +1,49 @@
+-- MySQL dump 10.13  Distrib 5.7.30, for Linux (x86_64)
+--
+-- Host: localhost    Database: external_fact_meta
+-- ------------------------------------------------------
+-- Server version	5.7.30-0ubuntu0.18.04.1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `external_dimension_columns`
+--
+
+DROP TABLE IF EXISTS `external_dimension_columns`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `external_dimension_columns` (
+  `id` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dim_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `column_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `column_type` enum('PK','VALUE','ATTRIBUTE','DATE_ATTRIBUTE','TIME_ATTRIBUTE','ALIAS','NONE') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NONE',
+  `scope_id` int(11) NOT NULL DEFAULT '-1000',
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `version` bigint(20) NOT NULL,
+  `data_type` enum('TEXT','NUMBER','BIGNUMBER','BOOLEAN','DATE','TIME') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'TEXT',
+  `display_name` text COLLATE utf8mb4_unicode_ci,
+  `usability_type` enum('DUMP_ONLY','PARTIAL_KEY','SELECT','FILTER','GROUP','BANDING') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'SELECT',
+  `functional_dependency_column` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `added_on` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `dim_table_id_column_name` (`dim_id`,`column_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-06-03 10:20:33

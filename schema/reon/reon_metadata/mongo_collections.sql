@@ -1,0 +1,20 @@
+CREATE TABLE `mongo_collections` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `end_point_id` int NOT NULL,
+  `is_sharded` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `scope_id` int NOT NULL DEFAULT '-1000',
+  `added_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `timestamp_column` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pkey_columns` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `primary_mongo_struct_id` int NOT NULL,
+  `dependent_struct_ids` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `end_point_id_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pkey_columns_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `primary_mongo_struct_id_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dependent_struct_ids_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_end_point` (`name`,`end_point_id`)
+) ENGINE=InnoDB;

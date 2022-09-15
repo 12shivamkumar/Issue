@@ -1,0 +1,1 @@
+CREATE TABLE partner_program_tier_sync_configuration(id INT primary key AUTO_INCREMENT, org_id INT NOT NULL, loyalty_program_id INT NOT NULL, partner_program_id INT NOT NULL, partner_program_slab_id INT NOT NULL, loyalty_program_slab_id INT NOT NULL, created_on DATETIME NOT NULL, auto_update_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);

@@ -1,0 +1,23 @@
+CREATE TABLE `model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `guid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `entity_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0: non location aware, -1: ensemble of location aware tbs, any other value: location aware',
+  `model_group` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `org_id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model_type_id` int(11) NOT NULL,
+  `score_table_name` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ' ',
+  `model_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active_db` enum('RED','BLACK') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'RED',
+  `is_processed` tinyint(1) NOT NULL DEFAULT '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `parent_id` int(11) NOT NULL DEFAULT '-1',
+  `created_by` int(11) NOT NULL,
+  `created_on` datetime NOT NULL,
+  `last_modified_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_modified_by` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `guid` (`guid`)
+);

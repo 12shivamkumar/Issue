@@ -1,0 +1,28 @@
+
+CREATE TABLE `coupon_redemption_upload` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `org_id` int(11) NOT NULL,
+  `coupon_series_id` int(11) NOT NULL,
+  `customer_type` enum('MOBILE','EMAIL','USER_ID','EXTERNAL_ID') COLLATE utf8mb4_unicode_ci DEFAULT 'MOBILE',
+  `coupon_identifier_type` enum('COUPON_ID','COUPON_CODE') COLLATE utf8mb4_unicode_ci DEFAULT 'COUPON_ID',
+  `job_status` enum('QUEUED','PAUSED','RUNNING','COMPLETED','ERRORED') COLLATE utf8mb4_unicode_ci DEFAULT 'QUEUED',
+  `execution_step` enum('QUEUED','TABLE_INITIALIZATION','VALIDATION','PRE_COMMIT','COMMIT','POST_COMMIT','NOTIFY') COLLATE utf8mb4_unicode_ci DEFAULT 'QUEUED',
+  `execution_step_status` enum('STARTED','COMPLETED','ERRORED') COLLATE utf8mb4_unicode_ci DEFAULT 'STARTED',
+  `total_upload_count` int(11) NOT NULL DEFAULT '0',
+  `upload_redeem_count` int(11) NOT NULL DEFAULT '0',
+  `error_count` int(11) NOT NULL DEFAULT '0',
+  `error_code` int(11) DEFAULT NULL,
+  `error_message` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `uploaded_file_url` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `error_file_url` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `success_file_url` varchar(1024) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `temp_table_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_commit_enabled` tinyint(1) default '0',
+  `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `uploaded_by` bigint(20) NOT NULL,
+  `auto_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`,`org_id`),
+  KEY `org_id_coupon_series_id_job_status_idx` (`org_id`,`coupon_series_id`, `job_status`),
+  KEY `execution_status_org_id_idx` (`job_status`,`org_id`),
+  KEY `auto_update_time_idx` (`auto_update_time`)
+) ;

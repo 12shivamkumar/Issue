@@ -1,0 +1,7 @@
+CREATE TABLE `TBL_CONFIG_KEYS` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `CONFIG_KEY` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `DEFAULT_VALUE` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `LABEL` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+);

@@ -1,0 +1,21 @@
+CREATE TABLE `session` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `org_id` bigint NOT NULL,
+    `uuid` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `ip_address` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `redirect_uri` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+    `client_id` bigint NOT NULL,
+    `state` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `scopes` varchar(255)COLLATE utf8mb4_unicode_ci NOT NULL,
+    `response_type` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `response_mode` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `session_expiry_date` datetime NOT NULL,
+    `created_on` datetime DEFAULT CURRENT_TIMESTAMP,
+    `auto_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `modified_on` datetime DEFAULT NULL,
+     PRIMARY KEY (`id`),
+     KEY `org_id_uuid_idx` (`org_id`,`uuid`),
+     KEY `org_id_client_id_idx` (`org_id`,`client_id`),
+     KEY `uuid_idx` (`uuid`),
+     KEY `auto_update_time_idx` (`auto_update_time`)
+);

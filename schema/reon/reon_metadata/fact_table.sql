@@ -1,0 +1,23 @@
+CREATE TABLE `fact_table` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `scope` enum('CAP','VERTICAL','ORG') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `scope_id` int NOT NULL DEFAULT '-1000',
+  `name` varchar(55) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `definition` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `primary_date_key_dimension` int DEFAULT NULL,
+  `primary_date_key_dimension_id` int NOT NULL,
+  `parent_src_tables` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `partition_keys` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `context_keys` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `added_on` timestamp NULL DEFAULT NULL,
+  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `incremental_period_in_year` int NOT NULL,
+  `type` enum('BASE','ETL_ONLY','EXPORT_ONLY','SCD_HISTORY') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'BASE',
+  `id_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `primary_date_key_dimension_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `primary_date_key_dimension_id_str` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parent_src_tables_str` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `fact_name` (`name`)
+) ENGINE=InnoDB;
